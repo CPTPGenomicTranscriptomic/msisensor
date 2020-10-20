@@ -64,7 +64,9 @@ HomoSite::HomoSite()
     , pValue( 0.0 )
     , comentropy( 0.0 )
     , somatic( false )
-    , withGenotype( false )   
+    , withGenotype( false )  ,
+    , minNBinArray (0) ,
+    , dividenumber (0)
 {
     InitType();
 };
@@ -291,7 +293,7 @@ void HomoSite::DisGenotyping(Sample &sample) {
                               << length << "\t" 
                               << bases << "\t" 
                               << ebases;
-        sample.outputGermline << "\t" << genotype[0] << "|" << genotype[1];
+        sample.outputGermline << "\t" << genotype[0] << "|" << genotype[1] ;
         sample.outputGermline << std::endl;
     }
 
@@ -329,7 +331,7 @@ void HomoSite::DisTumorSomatic(Sample &sample) {
                              << length << "\t"
                              << bases << "\t"
                              << ebases;
-        sample.outputSomatic << "\t" << std::fixed << comentropy;
+        sample.outputSomatic << "\t" << std::fixed << comentropy << "|" << withSufCov ;
         sample.outputSomatic << std::endl;
         SomaticSite onessite;
         onessite.chr = chr;
@@ -338,6 +340,7 @@ void HomoSite::DisTumorSomatic(Sample &sample) {
         onessite.fbases = fbases;
         onessite.ebases = ebases;
         onessite.bases = bases;
+	onessite.withsufcov = withSufCov;
 
         sample.totalSomaticSites.push_back( onessite );
     }
@@ -419,7 +422,7 @@ double HomoSite::Comentropy( unsigned short * tumorDis, unsigned int dispots ) {
     double comentropy = 0.0;
     double number = 0.0;
     for (int i = 0; i < dispots; i++){
-        if (tumorDis[i] <3){
+        if (tumorDis[i] < minNBinArray){
             tumorDis[i] = 0;
         }
         sum += tumorDis[i];
@@ -432,7 +435,7 @@ double HomoSite::Comentropy( unsigned short * tumorDis, unsigned int dispots ) {
             }
         }
     }
-    if ( number != 0 ) comentropy = comentropy/number;
+    if ( number != 0 & dividenumber == 1 ) comentropy = comentropy/number;
     return comentropy;
 }
 
