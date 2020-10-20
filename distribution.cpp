@@ -90,6 +90,8 @@ void DisUsage(void) {
         <<"       -b   <int>      threads number for parallel computing, default="<<paramd.numberThreads<<"\n"
         <<"       -x   <int>      output homopolymer only, 0: no; 1: yes, default="<<paramd.HomoOnly<<"\n"
         <<"       -y   <int>      output microsatellite only, 0: no; 1: yes, default="<<paramd.MicrosateOnly<<"\n"
+        <<"       -a   <int>      minimal number of counts consider while scoring, 0: no; 1: yes, default="<<paramd.minNBinArray<<"\n"
+        <<"       -b   <int>      divide the commentropy by number of not null value, 0: no; 1: yes, default="<<paramd.dividenumber<<"\n"
         <<"       \n"
         <<"       -h   help\n\n"
         << std::endl;
@@ -121,6 +123,8 @@ int dGetOptions(int rgc, char *rgv[]) {
             case 'b': paramd.numberThreads = atoi(rgv[++i]); break;
             case 'x': paramd.HomoOnly= atoi(rgv[++i]); break;
             case 'y': paramd.MicrosateOnly = atoi(rgv[++i]); break;
+            case 'a': paramd.minNBinArray= atoi(rgv[++i]); break;
+            case 'b': paramd.dividenumber = atoi(rgv[++i]); break;
             break;
             case 'h':DisUsage();
             case '?':DisUsage();    
