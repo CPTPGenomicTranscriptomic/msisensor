@@ -104,6 +104,8 @@ Param::Param()
     , Normalization(0)
     , fdrThreshold( 0.05 ) 
     , comentropyThreshold( 0.3 ) // for tumor only
+    , minNBinArray (3)
+    , dividenumber (0)
 {
     inital_homo_phabet();
     initalphabet();
