@@ -85,6 +85,9 @@ public:
     double pValue;
     double comentropy;
     int genotype[2];
+    int minNBinArray;
+    bool dividenumber;
+    
     ////////////////////////
 
     inline void InitType(){ genotype[0] = genotype[1] = -2; };
